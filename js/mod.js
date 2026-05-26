@@ -1,5 +1,5 @@
 let modInfo = {
-	name: "The ??? Tree",
+	name: "The bandomas zaidimas Tree",
 	author: "nobody",
 	pointsName: "points",
 	modFiles: ["layers.js", "tree.js"],
@@ -7,19 +7,18 @@ let modInfo = {
 	discordName: "",
 	discordLink: "",
 	initialStartPoints: new Decimal (10), // Used for hard resets and new players
-	offlineLimit: 1,  // In hours
+	offlineLimit: 0,  // In hours
 }
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.0",
+	num: "0.0.1",
 	name: "Literally nothing",
 }
 
-let changelog = `<h1>Changelog:</h1><br>
-	<h3>v0.0</h3><br>
-		- Added things.<br>
-		- Added stuff.`
+let changelog = `<h1>Changelog:</h1><br><br>
+		<h3>v0.0.1</h3><br>
+		- added 5 milestone.`
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
 
@@ -42,6 +41,21 @@ function getPointGen() {
 		return new Decimal(0)
 
 	let gain = new Decimal(1)
+	if (hasUpgrade("a", 11)) gain = gain.times(2)
+	if (hasUpgrade("a", 12)) gain = gain.times(3)
+	if (hasUpgrade("a", 21)) gain = gain.times(upgradeEffect("a", 21))
+
+	if (hasMilestone("a", 1)) gain = gain.times(1.2)
+	if (hasMilestone("a", 2)) gain = gain.times(1.4)
+	if (hasMilestone("a", 3)) gain = gain.times(1.6)
+	if (hasMilestone("a", 4)) gain = gain.times(1.8)
+	if (hasMilestone("a", 5)) gain = gain.times(2)
+	if (hasMilestone("a", 6)) gain = gain.times(2.2)
+	if (hasMilestone("a", 7)) gain = gain.times(2.4)
+	if (hasMilestone("a", 8)) gain = gain.times(2.6)
+	if (hasMilestone("a", 9)) gain = gain.times(2.8)
+	if (hasMilestone("a", 10)) gain = gain.times(3)
+
 	return gain
 }
 
@@ -55,7 +69,8 @@ var displayThings = [
 
 // Determines when the game "ends"
 function isEndgame() {
-	return player.points.gte(new Decimal("e280000000"))
+	return player.points.gte(new Decimal("100000"))
+	//return player.points.gte(new Decimal("e280000000"))
 }
 
 
